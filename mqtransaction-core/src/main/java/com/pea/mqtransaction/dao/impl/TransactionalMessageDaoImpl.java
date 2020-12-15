@@ -26,7 +26,7 @@ public class TransactionalMessageDaoImpl implements TransactionalMessageDao {
     private static final String INSERT_SQL =
             "INSERT INTO transactional_message(exchange_name, routing_key, business_key, message_type, "
                     + "message_body, message_header,  create_time,  update_time) "
-                    + "VALUE (?,?,?,?,?,?,?, ?)";
+                    + "VALUES (?,?,?,?,?,?,?, ?)";
     private static final String SELECT_ID_SQL = "SELECT id, exchange_name, routing_key, business_key, message_type, "
             + "message_body, message_header, create_time, update_time "
             + "FROM  transactional_message WHERE id=?";

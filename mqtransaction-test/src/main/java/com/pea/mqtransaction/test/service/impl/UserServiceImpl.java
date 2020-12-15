@@ -15,9 +15,9 @@ import javax.annotation.Resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pea.mqtransaction.test.dao.entity.User;
 import com.pea.mqtransaction.TransactionalMessageManager;
 import com.pea.mqtransaction.message.TransactionalMessage;
+import com.pea.mqtransaction.test.dao.entity.User;
 import com.pea.mqtransaction.test.dao.mapper.UserMapper;
 import com.pea.mqtransaction.test.service.UserService;
 
@@ -29,17 +29,14 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    private final UserMapper userMapper;
+    @Resource
+    private UserMapper userMapper;
 
-    private final TransactionTemplate transactionTemplate;
+    @Resource
+    private TransactionTemplate transactionTemplate;
 
     @Resource(name = "transactionMq")
     private TransactionalMessageManager transactionalMessageManager;
-
-    public UserServiceImpl(UserMapper userMapper, TransactionTemplate transactionTemplate) {
-        this.userMapper = userMapper;
-        this.transactionTemplate = transactionTemplate;
-    }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)

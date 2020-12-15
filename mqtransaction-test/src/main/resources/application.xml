@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:rabbit="http://www.springframework.org/schema/rabbit"
-       xmlns:txmq="http://www.springframework.org/schema/txmq"
+       xmlns:txmq="http://www.springframework.org/schema/txmq" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
+
+
        http://www.springframework.org/schema/rabbit
        http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
        http://www.springframework.org/schema/txmq
-       http://www.springframework.org/schema/txmq/tx-mq.xsd">
+       http://www.springframework.org/schema/txmq/tx-mq.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
     <!-- 配置数据源 -->
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/test?characterEncoding=UTF8"/>
-        <property name="username" value="root"/>
-        <property name="password" value="123456"/>
-    </bean>
+    <jdbc:embedded-database id="dataSource" type="H2">
+        <jdbc:script location="classpath:sql/schema.sql"/>
+        <jdbc:script location="classpath:sql/test_data.sql"/>
+    </jdbc:embedded-database>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -43,12 +39,10 @@
 
     <txmq:rabbit id="transactionMq" datasource="dataSource" connection-factory="rabbitmqConnectionFactory"/>
 
-    <rabbit:connection-factory id="rabbitmqConnectionFactory" addresses="10.201.209.111:5672"
-                               username="nts" password="nts" publisher-confirms="true"
-                               virtual-host="vod" channel-cache-size="5"/>
+    <rabbit:connection-factory id="rabbitmqConnectionFactory" addresses="127.0.0.1:5672"
+                               username="test" password="test" publisher-confirms="true"
+                               virtual-host="test" channel-cache-size="5"/>
 
-    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" mode="proxy"/>
-
-    <context:component-scan base-package="com.pea.mqtransaction.test.service"/>
+    <tx:annotation-driven proxy-target-class="true"/>
 
 </beans>

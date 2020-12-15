@@ -22,9 +22,9 @@
 <txmq:rabbit id="transactionMq" datasource="dataSource" connection-factory="rabbitmqConnectionFactory"/>
 
 // publisher-confirms="true" 开启发送确认机制
-<rabbit:connection-factory id="rabbitmqConnectionFactory" addresses="10.201.209.111:5672"
-                           username="nts" password="nts" publisher-confirms="true"
-                           virtual-host="vod" channel-cache-size="5"/>
+<rabbit:connection-factory id="rabbitmqConnectionFactory" addresses="127.0.0.1:5672"
+                           username="test" password="test" publisher-confirms="true"
+                           virtual-host="/" channel-cache-size="5"/>
 ```
 
 * 表初始化

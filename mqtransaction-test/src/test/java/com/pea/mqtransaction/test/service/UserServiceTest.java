@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import com.pea.mqtransaction.test.dao.entity.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring/application.xml")
+@ContextConfiguration("classpath:application.xml")
 public class UserServiceTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceTest.class);

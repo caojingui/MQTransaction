@@ -1,6 +1,6 @@
 package com.pea.mqtransaction.test;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +14,9 @@ import com.pea.mqtransaction.test.service.UserService;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/application.xml");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.register(TestBase.class);
+        context.refresh();
         UserService userService = context.getBean(UserService.class);
         User userDTO = new User();
         userDTO.setUsername("abc");

@@ -16,7 +16,7 @@
     <select id="queryById" resultMap="UserMap">
         select
           id, username, password, sex, age, status, create_tm
-        from test.user
+        from user
         where id = #{id}
     </select>
 
@@ -24,7 +24,7 @@
     <select id="queryAllByLimit" resultMap="UserMap">
         select
           id, username, password, sex, age, status, create_tm
-        from test.user
+        from user
         limit #{offset}, #{limit}
     </select>
 
@@ -32,7 +32,7 @@
     <select id="queryAll" resultMap="UserMap">
         select
         id, username, password, sex, age, status, create_tm
-        from test.user
+        from user
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -60,13 +60,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into test.user(username, password, sex, age, status, create_tm)
+        insert into user(username, password, sex, age, status, create_tm)
         values (#{username}, #{password}, #{sex}, #{age}, #{status}, #{createTm})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update test.user
+        update user
         <set>
             <if test="username != null and username != ''">
                 username = #{username},
@@ -92,7 +92,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from test.user where id = #{id}
+        delete from user where id = #{id}
     </delete>
 
 </mapper>
