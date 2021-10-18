@@ -86,4 +86,10 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <repository>
+            <id>space-maven</id>
+            <url>https://maven.pkg.jetbrains.space/luyi/p/luyi/maven</url>
+        </repository>
+    </distributionManagement>
 </project>
